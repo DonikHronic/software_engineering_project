@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator
 
 from online_delivery.models import Product, ProductCategory
 
@@ -7,8 +8,12 @@ def add_numbers(a: int, b: int) -> int:
     return a + b
 
 def index(request):
+    products = Product.objects.all()
+    paginator = Paginator(products, 15)
+    page = request.GET.get("page")
+    page_obj = paginator.get_page(page)
     context = {
-        "products": Product.objects.all(),
+        "page_obj": page_obj
     }
     
     return render(request, "online_delivery/index.html", context=context)
@@ -34,7 +39,8 @@ class CategoriesDetailView(DetailView):
 class ProductsListView(ListView):
     model = Product
     context_object_name = "products"
-    paginate_by = 50
+    paginate_by = 15
+    order_by = 'id'
 
 
 class ProductDetailView(DetailView):
@@ -44,3 +50,6 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context["product_counts"] = [n for n in range(1, 11)]
         return context
+
+
+
