@@ -38,9 +38,10 @@ class Restaurant(models.Model):
 class ProductCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
+    image = models.ImageField(default='', null=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse('category-detail', kwargs={'pk': self.id})
+        return reverse("category-detail", kwargs={"pk": self.id})
 
 
 class Product(models.Model):
@@ -51,7 +52,7 @@ class Product(models.Model):
     image = models.ImageField()
 
     def get_absolute_url(self):
-        return reverse('product-detail', kwargs={'pk': self.id})
+        return reverse("product-detail", kwargs={"pk": self.id})
 
 
 class Order(models.Model):
@@ -66,6 +67,8 @@ class Order(models.Model):
     products = models.ManyToManyField(Product)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
-    status = models.CharField(choices=StatusChoices, max_length=50, default=StatusChoices.NEW)
+    status = models.CharField(
+        choices=StatusChoices, max_length=50, default=StatusChoices.NEW
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

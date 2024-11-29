@@ -138,6 +138,10 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=255)),
                 ("description", models.TextField()),
+                (
+                    "image",
+                    models.ImageField(blank=True, default="", null=True, upload_to=""),
+                ),
             ],
         ),
         migrations.CreateModel(
