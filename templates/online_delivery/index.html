@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container py-3">
+        <h1>Hello!</h1>
+        <p>Welcome to our Online Delivery Application</p>
+    </div>
+    <div class="container py-2">
+        <h3>Products</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-2">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card">
+                        <img width="300" height="300"
+                             src="{{ product.image.url }}"
+                             class="card-img-top" alt="Product image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

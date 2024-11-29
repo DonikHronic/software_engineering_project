@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container py-3">
+        <div class="row">
+            <div class="col">
+                <h1>{{ product.name }}</h1>
+                <p>{{ product.description }}</p>
+            </div>
+            <div class="col align-self-end">
+                <form action="">
+                    <div class="form-floating">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            {% for num in product_counts %}
+                                {% if num < 1 %}
+                                    <option selected value="{{ num }}">{{ num }}</option>
+                                {% else %}
+                                    <option value="{{ num }}">{{ num }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <label for="floatingSelect">Set the count of product to order</label>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary me-md-2" type="button">Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
