@@ -47,20 +47,23 @@
                                     </button>
                                     <button class="nav-link" id="nav-register-tab" data-bs-toggle="tab"
                                             data-bs-target="#nav-register" type="button" role="tab"
-                                            aria-controls="nav-register" aria-selected="false">Profile
+                                            aria-controls="nav-register" aria-selected="false">Register
                                     </button>
                                 </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active mt-2" id="nav-login" role="tabpanel"
                                      aria-labelledby="nav-login-tab">
-                                    <form>
+                                    <form url="{% url 'login' %}">
+                                        {% csrf_token %}
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
+                                            {{ form.username }}
                                             <input type="text" class="form-control" id="username">
                                         </div>
                                         <div class="mb-3">
                                             <label for="password" class="form-label">Password</label>
+                                            {{ form.password }}
                                             <input type="password" class="form-control" id="password">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Log In</button>
