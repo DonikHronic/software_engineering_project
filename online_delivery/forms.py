@@ -12,4 +12,4 @@ class BaseUserCreationForm(UserCreationForm):
 class BaseUserChangeForm(UserChangeForm):
     class Meta:
         model = BaseUser
-        fields = ("username",)
+        fields = ("username", "password")

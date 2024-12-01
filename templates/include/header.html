@@ -27,9 +27,17 @@
             </form>
             <!-- Button trigger modal -->
             <div class="ms-1">
+                {% if request.user.is_authenticated %}
+                <ul class="nav mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true">{{ request.user }}</a>
+                    </li>
+                </ul>
+                {% else %}
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Log-In
                 </button>
+                {% endif %}
             </div>
 
             <!-- Modal -->
@@ -54,7 +62,7 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active mt-2" id="nav-login" role="tabpanel"
                                      aria-labelledby="nav-login-tab">
-                                    <form url="{% url 'login' %}">
+                                    <form url="{% url 'login' %}" method="POST">
                                         {% csrf_token %}
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
