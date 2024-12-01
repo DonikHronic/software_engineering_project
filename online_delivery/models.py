@@ -67,7 +67,7 @@ class Order(models.Model):
         ON_DELIVERY = "ON_DELIVERY"
         DELIVERED = "DELIVERED"
 
-    products = models.ManyToManyField(Product)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
     status = models.CharField(
@@ -75,3 +75,6 @@ class Order(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-id']

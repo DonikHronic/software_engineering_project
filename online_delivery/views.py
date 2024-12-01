@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 
-from online_delivery.models import Product, ProductCategory
+from online_delivery.models import Product, ProductCategory, Order
 from online_delivery.models import BaseUser
 
 def add_numbers(a: int, b: int) -> int:
@@ -62,4 +62,21 @@ class ProductDetailView(DetailView):
         return context
 
 
+class OrderListView(ListView):
+    model = Order
+    paginate_by = 15
+
+
+class OrderDetailView(DetailView):
+    model = Order
+
+
+def create_order(request):
+    if request.method == "POST":
+        product_id = request.POST.get("product_id", None)
+        product = Product.objects.get(id=product_id)
+        order = Order.objects.create(
+            product=product, user=request.user, price=100
+        )
+        order.save()
 
