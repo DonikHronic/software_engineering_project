@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+<div class="container py-3">
+    <div class="row">
+        <div class="col">
+            <div class="ratio ratio-1x1">
+                <img src="{{ order.product.image.url }}" class="img-fluid" alt="...">
+            </div>
+        </div>
+        <div class="col align-self-start">
+            <div class="mb-3">
+                <h1>Order {{ order.id }}</h1>
+                <span>Created: {{ order.created_at }}</span><br/>
+                <span>Status: {{ order.status }}</span>
+            </div>
+            <hr/>
+            <div class="mb-5">
+                <h3>Order Product</h3>
+                <h4>{{ order.product.name }}</h4>
+                <p>{{ order.product.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

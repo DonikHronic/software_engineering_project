@@ -14,9 +14,11 @@
                     <h1>{{ product.name }}</h1>
                     <p>{{ product.description }}</p>
                 </div>
-                <form action="">
+                <form action="{% url 'create-order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ product.id }}" id="product_id" name="product_id"/>
                     <div class="form-floating mb-5">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <select class="form-select" id="count" name="count" aria-label="Floating label select example">
                             {% for num in product_counts %}
                                 {% if num < 1 %}
                                     <option selected value="{{ num }}">{{ num }}</option>
@@ -25,11 +27,11 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                        <label for="floatingSelect">Set the count of product to order</label>
+                        <label for="count">Set the count of product to order</label>
                     </div>
 
                     <div class="d-grid gap-2 mt-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-primary" type="button" style="width: 150px;">Order</button>
+                        <button class="btn btn-primary" type="submit" style="width: 150px;">Order</button>
                     </div>
                 </form>
             </div>

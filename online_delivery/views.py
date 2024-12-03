@@ -74,9 +74,10 @@ class OrderDetailView(DetailView):
 def create_order(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id", None)
+        count = request.POST.get('count')
         product = Product.objects.get(id=product_id)
         order = Order.objects.create(
-            product=product, user=request.user, price=100
+            product=product, user=request.user, price=100, product_count=count
         )
         order.save()
-
+    return redirect('orders')
