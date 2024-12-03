@@ -1,12 +1,4 @@
 services:
-  server:
-    build:
-      context: .
-    ports:
-      - "8000:8000"
-    networks:
-      - app_network
-
   db:
     container_name: db
     image: postgres:latest
@@ -19,6 +11,17 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - postgresql_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+  server:
+    build:
+      context: .
+    environment:
+      POSTGRES_HOST: db
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
     networks:
       - app_network
 

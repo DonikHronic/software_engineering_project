@@ -11,5 +11,6 @@ COPY . .
 RUN pip3 install poetry
 RUN poetry config virtualenvs.create false
 RUN  poetry install --no-root --no-interaction --no-ansi
+RUN chmod +x ./docker-entrypoint.sh
 
-CMD ["python", "manage.py", "runserver"]
+ENTRYPOINT ./docker-entrypoint.sh

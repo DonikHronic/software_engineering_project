@@ -19,7 +19,7 @@ cd software_engineering_project
 
 ### 3. Build the Docker containers
 ```shell
-docker compose up --build
+docker compose up --build -d
 ```
 
 ### 4. Access application on http://localhost:8000
