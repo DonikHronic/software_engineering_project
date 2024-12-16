@@ -5,19 +5,16 @@ from django.core.paginator import Paginator
 from online_delivery.models import Product, ProductCategory, Order
 from online_delivery.models import BaseUser
 
-def add_numbers(a: int, b: int) -> int:
-    return a + b
 
 def index(request):
     products = Product.objects.all()
     paginator = Paginator(products, 15)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
-    context = {
-        "page_obj": page_obj
-    }
-    
+    context = {"page_obj": page_obj}
+
     return render(request, "online_delivery/index.html", context=context)
+
 
 def register(request):
     if request.method == "POST":
@@ -27,7 +24,8 @@ def register(request):
         user = BaseUser.objects.create(username=username, email=email)
         user.set_password(password)
         user.save()
-    return redirect('index')
+    return redirect("index")
+
 
 class CategoriesView(ListView):
     model = ProductCategory
@@ -50,7 +48,7 @@ class ProductsListView(ListView):
     model = Product
     context_object_name = "products"
     paginate_by = 15
-    order_by = 'id'
+    order_by = "id"
 
 
 class ProductDetailView(DetailView):
@@ -74,10 +72,10 @@ class OrderDetailView(DetailView):
 def create_order(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id", None)
-        count = request.POST.get('count')
+        count = request.POST.get("count")
         product = Product.objects.get(id=product_id)
         order = Order.objects.create(
             product=product, user=request.user, price=100, product_count=count
         )
         order.save()
-    return redirect('orders')
+    return redirect("orders")
