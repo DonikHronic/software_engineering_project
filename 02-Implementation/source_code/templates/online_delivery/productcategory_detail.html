@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container py-3">
+        <h1>{{ productcategory.name }}</h1>
+        <p>{{ productcategory.description }}</p>
+        <p>Here you can select the category of the foods, you want to order</p>
+    </div>
+    <div class="container py-2">
+        <h3>Products</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-2">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card">
+                        <img width="300" height="300"
+                             src="{{ product.image.url }}"
+                             class="card-img-top" alt="Product image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <a href="{{ product.get_absolute_url }}" class="link-primary">Details >></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container py-3">
+        <div class="row">
+            <div class="col">
+                {# I need responsive image#}
+                <div class="ratio ratio-1x1">
+                    <img src="{{ product.image.url }}" class="img-fluid" alt="...">
+                </div>
+            </div>
+            <div class="col align-self-start">
+                <div class="mb-5">
+                    <h1>{{ product.name }}</h1>
+                    <p>{{ product.description }}</p>
+                </div>
+                <form action="{% url 'create-order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ product.id }}" id="product_id" name="product_id"/>
+                    <div class="form-floating mb-5">
+                        <select class="form-select" id="count" name="count" aria-label="Floating label select example">
+                            {% for num in product_counts %}
+                                {% if num < 1 %}
+                                    <option selected value="{{ num }}">{{ num }}</option>
+                                {% else %}
+                                    <option value="{{ num }}">{{ num }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <label for="count">Set the count of product to order</label>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary" type="submit" style="width: 150px;">Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

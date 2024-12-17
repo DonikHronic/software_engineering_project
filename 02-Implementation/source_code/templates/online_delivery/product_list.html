@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container py-3">
+        <h1>Products</h1>
+        <p>Choose the product you want to order</p>
+    </div>
+    <div class="container py-2">
+        <h3>Products</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-2">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card">
+                        <img width="300" height="300"
+                             src="{{ product.image.url }}"
+                             class="card-img-top" alt="Product image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <a href="{{ product.get_absolute_url }}" class="link-primary">Details >></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container mt-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.number|add:-1 }}">{{ page_obj.number|add:-1 }}</a>
+                </li>
+                {% endif %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number}}</a>
+                </li>
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.number|add:1 }}">{{ page_obj.number|add:1}}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                </li>
+
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock content %}
